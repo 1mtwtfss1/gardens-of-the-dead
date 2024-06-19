@@ -70,12 +70,16 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         doorWithItem(ModBlocks.SOULBLIGHT_DOOR.get());
         trapdoorWithItem(ModBlocks.SOULBLIGHT_TRAPDOOR.get());
 
-        logWithItem(ModBlocks.WHISTLECANE_BLOCK.get());
-        ResourceLocation whistlecaneTexture = blockTexture(getName(ModBlocks.WHISTLECANE_BLOCK.get()));
-        ResourceLocation whistlecaneTopTexture = blockTexture(getName(ModBlocks.WHISTLECANE_BLOCK.get()) + "_top");
+        ResourceLocation whistlecaneTexture = blockTexture("whistlecane_stem");
+        ResourceLocation whistlecaneTopTexture = blockTexture("whistlecane_stem_top");
         ResourceLocation whistlecaneFenceGateTexture = blockTexture(ModBlocks.WHISTLECANE_FENCE_GATE.get());
 
-        slabWithItem(ModBlocks.WHISTLECANE_SLAB.get(), whistlecaneTexture, whistlecaneTopTexture);
+        axisBlock(ModBlocks.WHISTLECANE_BLOCK.get(), whistlecaneTexture, whistlecaneTopTexture);
+        simpleBlockItem(ModBlocks.WHISTLECANE_BLOCK.get());
+
+        slabBlock(ModBlocks.WHISTLECANE_SLAB.get(), blockTexture(getName(ModBlocks.WHISTLECANE_BLOCK.get())), whistlecaneTexture, whistlecaneTopTexture, whistlecaneTopTexture);
+        simpleBlockItem(ModBlocks.WHISTLECANE_SLAB.get());
+
         stairsWithItem(ModBlocks.WHISTLECANE_STAIRS.get(), whistlecaneTexture, whistlecaneTopTexture);
         buttonWithItem(ModBlocks.WHISTLECANE_BUTTON.get(), whistlecaneTexture);
         pressurePlateWithItem(ModBlocks.WHISTLECANE_PRESSURE_PLATE.get(), whistlecaneTexture);
