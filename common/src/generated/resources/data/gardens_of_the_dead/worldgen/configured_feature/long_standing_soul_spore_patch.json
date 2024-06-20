@@ -9,10 +9,8 @@
           "glowingChance": 0.05,
           "length": {
             "type": "minecraft:uniform",
-            "value": {
-              "max_inclusive": 8,
-              "min_inclusive": 1
-            }
+            "max_inclusive": 8,
+            "min_inclusive": 1
           }
         }
       },

@@ -1,0 +1,28 @@
+{
+  "values": {
+    "gardens_of_the_dead:blightwart_block": {
+      "chance": 0.85
+    },
+    "gardens_of_the_dead:blistercrown": {
+      "chance": 0.3
+    },
+    "gardens_of_the_dead:glowing_soul_spore": {
+      "chance": 0.85
+    },
+    "gardens_of_the_dead:soul_spore": {
+      "chance": 0.3
+    },
+    "gardens_of_the_dead:soulblight_fungus": {
+      "chance": 0.65
+    },
+    "gardens_of_the_dead:soulblight_sprouts": {
+      "chance": 0.3
+    },
+    "gardens_of_the_dead:tall_blistercrown": {
+      "chance": 0.3
+    },
+    "gardens_of_the_dead:whistlecane": {
+      "chance": 0.5
+    }
+  }
+}

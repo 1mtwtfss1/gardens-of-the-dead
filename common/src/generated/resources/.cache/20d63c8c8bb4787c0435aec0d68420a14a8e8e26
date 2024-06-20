@@ -1,6 +1,9 @@
-// 1.20.1	2023-07-14T23:05:29.2801259	Tags for minecraft:worldgen/biome mod id gardens_of_the_dead
-aa6d58aab2aeecaa773acbd6cc1a8cbda0142e69 data/forge/tags/worldgen/biome/is_dry/nether.json
-aa6d58aab2aeecaa773acbd6cc1a8cbda0142e69 data/forge/tags/worldgen/biome/is_hot/nether.json
+// 1.21	2024-06-20T21:40:11.9354906	Tags for minecraft:worldgen/biome mod id gardens_of_the_dead
+aa6d58aab2aeecaa773acbd6cc1a8cbda0142e69 data/c/tags/worldgen/biome/is_dense_vegetation/nether.json
+aa6d58aab2aeecaa773acbd6cc1a8cbda0142e69 data/c/tags/worldgen/biome/is_dry/nether.json
+aa6d58aab2aeecaa773acbd6cc1a8cbda0142e69 data/c/tags/worldgen/biome/is_hot/nether.json
+aa6d58aab2aeecaa773acbd6cc1a8cbda0142e69 data/c/tags/worldgen/biome/is_nether_forest.json
 aa6d58aab2aeecaa773acbd6cc1a8cbda0142e69 data/minecraft/tags/worldgen/biome/has_structure/bastion_remnant.json
 ca4305d23e11a592ef7e89dcfb823a219a956ad9 data/minecraft/tags/worldgen/biome/has_structure/nether_fossil.json
 aa6d58aab2aeecaa773acbd6cc1a8cbda0142e69 data/minecraft/tags/worldgen/biome/is_nether.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/worldgen/biome/snow_golem_melts.json
