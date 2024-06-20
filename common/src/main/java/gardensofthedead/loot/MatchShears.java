@@ -1,8 +1,5 @@
 package gardensofthedead.loot;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
 import com.mojang.serialization.MapCodec;
 import gardensofthedead.platform.PlatformServices;
 import gardensofthedead.registry.ModLootConditions;

@@ -24,11 +24,6 @@ public record WhistleEffectPacket(BlockPos pos, ResourceKey<Level> dimension) im
             WhistleEffectPacket::new
     );
 
-    void encode(FriendlyByteBuf buffer) {
-        buffer.writeBlockPos(pos);
-        buffer.writeResourceKey(dimension);
-    }
-
     void apply(NetworkManager.PacketContext context) {
         context.queue(() -> {
             if (Minecraft.getInstance().level != null && Minecraft.getInstance().level.dimension().equals(dimension)) {

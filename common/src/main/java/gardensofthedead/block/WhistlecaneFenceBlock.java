@@ -57,11 +57,6 @@ public class WhistlecaneFenceBlock extends CrossCollisionBlock {
         return this.getShape(state, level, pos, context);
     }
 
-    @Override
-    protected boolean isPathfindable(BlockState blockState, PathComputationType pathComputationType) {
-        return false;
-    }
-
     public boolean connectsTo(BlockState state, boolean isFaceSturdy, Direction direction) {
         Block block = state.getBlock();
         boolean isSame = isSameFence(state);
