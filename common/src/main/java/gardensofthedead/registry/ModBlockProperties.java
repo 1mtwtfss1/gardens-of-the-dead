@@ -1,11 +1,13 @@
 package gardensofthedead.registry;
 
-import gardensofthedead.GardensOfTheDead;
+import com.mojang.serialization.MapCodec;
 import gardensofthedead.platform.PlatformServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +20,7 @@ public class ModBlockProperties {
     private static final int GLOWING_SOUL_SPORE_LIGHT = 7;
     private static final int BLISTERCROWN_LIGHT = 5;
 
-    public static BlockBehaviour.Properties SOUL_SPORE = of()
+    public static BlockBehaviour.Properties SOUL_SPORE = BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_BROWN)
             .sound(SoundType.WEEPING_VINES)
             .noCollission()
@@ -28,14 +30,14 @@ public class ModBlockProperties {
     public static BlockBehaviour.Properties GLOWING_SOUL_SPORE = copy(SOUL_SPORE)
             .lightLevel(state -> GLOWING_SOUL_SPORE_LIGHT);
 
-    public static BlockBehaviour.Properties SOULBLIGHT_FUNGUS = of()
+    public static BlockBehaviour.Properties SOULBLIGHT_FUNGUS = BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_BROWN)
             .instabreak()
             .noCollission()
             .sound(SoundType.FUNGUS)
             .pushReaction(PushReaction.DESTROY);
 
-    public static BlockBehaviour.Properties SOULBLIGHT_SPROUTS = of()
+    public static BlockBehaviour.Properties SOULBLIGHT_SPROUTS = BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_BROWN)
             .replaceable()
             .noCollission()
@@ -44,7 +46,7 @@ public class ModBlockProperties {
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.DESTROY);
 
-    public static BlockBehaviour.Properties BLISTERCROWN = of()
+    public static BlockBehaviour.Properties BLISTERCROWN = BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_RED)
             .replaceable()
             .noCollission()
@@ -54,7 +56,7 @@ public class ModBlockProperties {
             .lightLevel(state -> BLISTERCROWN_LIGHT)
             .pushReaction(PushReaction.DESTROY);
 
-    public static BlockBehaviour.Properties WHISTLECANE = of()
+    public static BlockBehaviour.Properties WHISTLECANE = BlockBehaviour.Properties.of()
             .mapColor(MapColor.CRIMSON_NYLIUM)
             .forceSolidOn()
             .randomTicks()
@@ -67,13 +69,13 @@ public class ModBlockProperties {
             .pushReaction(PushReaction.DESTROY)
             .isRedstoneConductor((blockState, level, pos) -> false);
 
-    public static BlockBehaviour.Properties SOULBLIGHT_STEM = of()
+    public static BlockBehaviour.Properties SOULBLIGHT_STEM = BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_BROWN)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2)
             .sound(SoundType.STEM);
 
-    public static BlockBehaviour.Properties BLIGHTWART_BLOCK = of()
+    public static BlockBehaviour.Properties BLIGHTWART_BLOCK = BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
             .strength(1)
             .sound(SoundType.WART_BLOCK);
@@ -81,7 +83,7 @@ public class ModBlockProperties {
     public static BlockBehaviour.Properties POTTED_GLOWING_SOUL_SPORE = pottedPlant()
             .lightLevel(state -> GLOWING_SOUL_SPORE_LIGHT);
 
-    public static BlockBehaviour.Properties SOULBLIGHT_PLANKS = of()
+    public static BlockBehaviour.Properties SOULBLIGHT_PLANKS = BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_BROWN)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2, 3)
@@ -98,7 +100,7 @@ public class ModBlockProperties {
             .noCollission()
             .strength(1);
 
-    public static BlockBehaviour.Properties WHISTLECANE_BLOCK = of()
+    public static BlockBehaviour.Properties WHISTLECANE_BLOCK = BlockBehaviour.Properties.of()
             .mapColor(MapColor.CRIMSON_NYLIUM)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1, 2)
@@ -115,23 +117,29 @@ public class ModBlockProperties {
             .noCollission()
             .strength(1);
 
-    public static BlockBehaviour.Properties WHISTLECANE_WALL_SIGN = copyWithLoot(
-            WHISTLECANE_SIGN,
-            GardensOfTheDead.id("whistlecane_sign")
-    );
-
     public static BlockBehaviour.Properties pottedPlant() {
-        return of()
+        return BlockBehaviour.Properties.of()
                 .instabreak()
                 .noOcclusion();
     }
 
-    public static BlockBehaviour.Properties of() {
-        return PlatformServices.platformHelper.createBlockProperties();
-    }
-
     public static BlockBehaviour.Properties copy(BlockBehaviour.Properties properties) {
-        return PlatformServices.platformHelper.copyBlockProperties(properties);
+        return BlockBehaviour.Properties.ofFullCopy(new BlockBehaviour(properties) {
+            @Override
+            protected MapCodec<? extends Block> codec() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public Item asItem() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            protected Block asBlock() {
+                throw new UnsupportedOperationException();
+            }
+        });
     }
 
     public static BlockBehaviour.Properties copyWithLoot(BlockBehaviour.Properties properties, ResourceLocation id) {

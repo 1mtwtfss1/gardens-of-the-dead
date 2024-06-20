@@ -20,9 +20,5 @@ public interface PlatformHelper {
 
     RotatedPillarBlock createStrippableBlock(Supplier<? extends Block> strippedBlock, BlockBehaviour.Properties properties);
 
-    BlockBehaviour.Properties createBlockProperties();
-
-    BlockBehaviour.Properties copyBlockProperties(BlockBehaviour.Properties properties);
-
     BlockBehaviour.Properties copyBlockPropertiesWithLoot(BlockBehaviour.Properties properties, ResourceLocation id);
 }

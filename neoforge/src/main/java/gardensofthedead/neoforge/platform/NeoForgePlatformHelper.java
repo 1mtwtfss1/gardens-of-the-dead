@@ -1,12 +1,11 @@
 package gardensofthedead.neoforge.platform;
 
-import com.mojang.serialization.MapCodec;
 import dev.architectury.registry.registries.RegistrySupplier;
 import gardensofthedead.neoforge.block.StrippableLogBlock;
 import gardensofthedead.platform.PlatformHelper;
+import gardensofthedead.registry.ModBlockProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -43,32 +42,7 @@ public class NeoForgePlatformHelper implements PlatformHelper {
     }
 
     @Override
-    public BlockBehaviour.Properties createBlockProperties() {
-        return BlockBehaviour.Properties.of();
-    }
-
-    @Override
-    public BlockBehaviour.Properties copyBlockProperties(BlockBehaviour.Properties properties) {
-        return BlockBehaviour.Properties.ofLegacyCopy(new BlockBehaviour(properties) {
-            @Override
-            public Item asItem() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            protected Block asBlock() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            protected MapCodec<? extends Block> codec() {
-                return MapCodec.unit(Blocks.AIR);
-            }
-        });
-    }
-
-    @Override
     public BlockBehaviour.Properties copyBlockPropertiesWithLoot(BlockBehaviour.Properties properties, ResourceLocation id) {
-        return copyBlockProperties(properties).lootFrom(() -> BuiltInRegistries.BLOCK.get(id));
+        return ModBlockProperties.copy(properties).lootFrom(() -> BuiltInRegistries.BLOCK.get(id));
     }
 }

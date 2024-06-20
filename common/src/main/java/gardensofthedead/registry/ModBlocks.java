@@ -3,11 +3,11 @@ package gardensofthedead.registry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import gardensofthedead.GardensOfTheDead;
-import gardensofthedead.block.*;
 import gardensofthedead.block.CeilingHangingSignBlock;
 import gardensofthedead.block.StandingSignBlock;
 import gardensofthedead.block.WallHangingSignBlock;
 import gardensofthedead.block.WallSignBlock;
+import gardensofthedead.block.*;
 import gardensofthedead.platform.PlatformServices;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.*;
@@ -16,9 +16,9 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.PushReaction;
 
-import static net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 import java.util.function.Supplier;
+
+import static net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class ModBlocks {
 
@@ -75,7 +75,7 @@ public class ModBlocks {
     public static final RegistrySupplier<StandingSignBlock> WHISTLECANE_SIGN = BLOCKS.register("whistlecane_sign", () -> sign(ModBlockProperties.WHISTLECANE_BLOCK, ModWoodTypes.WHISTLECANE));
     public static final RegistrySupplier<WallSignBlock> WHISTLECANE_WALL_SIGN = BLOCKS.register("whistlecane_wall_sign", () -> wallSign(ModBlockProperties.WHISTLECANE_BLOCK, WHISTLECANE_SIGN, ModWoodTypes.WHISTLECANE));
     public static final RegistrySupplier<CeilingHangingSignBlock> WHISTLECANE_HANGING_SIGN = BLOCKS.register("whistlecane_hanging_sign", () -> hangingSign(ModBlockProperties.WHISTLECANE_SIGN, SoundType.BAMBOO_WOOD_HANGING_SIGN, ModWoodTypes.WHISTLECANE));
-    public static final RegistrySupplier<WallHangingSignBlock> WHISTLECANE_WALL_HANGING_SIGN = BLOCKS.register("whistlecane_wall_hanging_sign", () -> wallHangingSign(ModBlockProperties.WHISTLECANE_WALL_SIGN, WHISTLECANE_HANGING_SIGN, SoundType.BAMBOO_WOOD_HANGING_SIGN, ModWoodTypes.WHISTLECANE));
+    public static final RegistrySupplier<WallHangingSignBlock> WHISTLECANE_WALL_HANGING_SIGN = BLOCKS.register("whistlecane_wall_hanging_sign", () -> wallHangingSign(ModBlockProperties.WHISTLECANE_SIGN, WHISTLECANE_HANGING_SIGN, SoundType.BAMBOO_WOOD_HANGING_SIGN, ModWoodTypes.WHISTLECANE));
 
     public static final RegistrySupplier<Block> WHISTLECANE_MOSAIC = block("whistlecane_mosaic", ModBlockProperties.WHISTLECANE_BLOCK);
     public static final RegistrySupplier<SlabBlock> WHISTLECANE_MOSAIC_SLAB = BLOCKS.register("whistlecane_mosaic_slab", () -> new SlabBlock(ModBlockProperties.WHISTLECANE_BLOCK));

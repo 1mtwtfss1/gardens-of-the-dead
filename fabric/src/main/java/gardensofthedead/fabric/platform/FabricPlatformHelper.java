@@ -42,16 +42,6 @@ public class FabricPlatformHelper implements PlatformHelper {
     }
 
     @Override
-    public BlockBehaviour.Properties createBlockProperties() {
-        return FabricBlockSettings.create();
-    }
-
-    @Override
-    public BlockBehaviour.Properties copyBlockProperties(BlockBehaviour.Properties properties) {
-        return FabricBlockSettings.copyOf(properties);
-    }
-
-    @Override
     public BlockBehaviour.Properties copyBlockPropertiesWithLoot(BlockBehaviour.Properties properties, ResourceLocation id) {
         ResourceLocation lootTable = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "blocks/" + id.getPath());
         return FabricBlockSettings.copyOf(properties).drops(ResourceKey.create(Registries.LOOT_TABLE, lootTable));
