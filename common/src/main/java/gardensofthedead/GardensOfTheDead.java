@@ -12,7 +12,7 @@ public class GardensOfTheDead {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public static ResourceLocation id(String path) {
-        return new ResourceLocation(GardensOfTheDead.MOD_ID, path);
+        return ResourceLocation.fromNamespaceAndPath(GardensOfTheDead.MOD_ID, path);
     }
 
     public static void init() {

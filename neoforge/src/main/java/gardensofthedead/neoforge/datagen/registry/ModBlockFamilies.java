@@ -50,7 +50,6 @@ public class ModBlockFamilies {
             .stairs(ModBlocks.WHISTLECANE_MOSAIC_STAIRS.get())
             .getFamily();
 
-    @SuppressWarnings("deprecation")
     private static BlockFamily.Builder familyBuilder(Block block) {
         BlockFamily.Builder builder = new BlockFamily.Builder(block);
         BlockFamily blockfamily = MAP.put(block, builder.getFamily());

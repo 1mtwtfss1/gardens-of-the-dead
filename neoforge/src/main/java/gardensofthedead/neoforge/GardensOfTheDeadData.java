@@ -1,7 +1,8 @@
-package gardensofthedead.neoforge.datagen;
+package gardensofthedead.neoforge;
 
 import gardensofthedead.GardensOfTheDead;
-import gardensofthedead.neoforge.datagen.providers.*;
+import gardensofthedead.neoforge.datagen.*;
+import net.minecraft.core.Cloner;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.RegistrySetBuilder;
@@ -9,18 +10,18 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DataPackRegistriesHooks;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.DataPackRegistriesHooks;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@Mod.EventBusSubscriber(modid = GardensOfTheDead.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = GardensOfTheDead.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class GardensOfTheDeadData {
 
     @SubscribeEvent
@@ -35,9 +36,10 @@ public class GardensOfTheDeadData {
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeClient(), new BlockStateProvider(packOutput, existingFileHelper));
         generator.addProvider(event.includeServer(), new ItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
-        generator.addProvider(event.includeServer(), new LootTableProvider(packOutput));
-        generator.addProvider(event.includeServer(), new RecipeProvider(packOutput));
+        generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, lookupProvider));
+        generator.addProvider(event.includeServer(), new RecipeProvider(packOutput, lookupProvider));
         generator.addProvider(event.includeClient(), new SoundDefinitionsProvider(packOutput, existingFileHelper));
+        generator.addProvider(event.includeServer(), new DataMapProvider(packOutput, lookupProvider));
 
         RegistrySetBuilder levelProvider = createLevelProvider();
         generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(generator.getPackOutput(), event.getLookupProvider(), levelProvider, Set.of(GardensOfTheDead.MOD_ID)));
@@ -52,7 +54,9 @@ public class GardensOfTheDeadData {
         DataPackRegistriesHooks.getDataPackRegistriesWithDimensions()
                 .filter(data -> !builderKeys.contains(data.key()))
                 .forEach(data -> datapackEntriesBuilder.add(data.key(), context -> {}));
-        return datapackEntriesBuilder.buildPatch(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), original);
+        Cloner.Factory factory = new Cloner.Factory();
+        DataPackRegistriesHooks.getDataPackRegistriesWithDimensions().forEach(data -> data.runWithArguments(factory::addCodec));
+        return datapackEntriesBuilder.buildPatch(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), original, factory).full();
     }
 
 

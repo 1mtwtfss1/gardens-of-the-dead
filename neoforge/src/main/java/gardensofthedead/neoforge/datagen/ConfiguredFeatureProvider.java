@@ -1,4 +1,4 @@
-package gardensofthedead.neoforge.datagen.providers;
+package gardensofthedead.neoforge.datagen;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.block.SoulSporeBlock;
@@ -10,7 +10,7 @@ import gardensofthedead.registry.ModBlocks;
 import gardensofthedead.registry.ModFeatures;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -41,7 +41,7 @@ public class ConfiguredFeatureProvider {
                 ModBlocks.SOULBLIGHT_FUNGUS.get(), ModBlocks.SOULBLIGHT_SPROUTS.get(), ModBlocks.SOUL_SPORE.get(), ModBlocks.GLOWING_SOUL_SPORE.get(), ModBlocks.BLISTERCROWN.get());
     }
 
-    public static void create(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void create(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         for (ResourceKey<ConfiguredFeature<?, ?>> key : CONFIGURED_FEATURES.keySet()) {
             context.register(key, CONFIGURED_FEATURES.get(key).get());
         }

@@ -11,6 +11,6 @@ public class ModLootConditions {
 
     public static final DeferredRegister<LootItemConditionType> LOOT_CONDITIONS = DeferredRegister.create(GardensOfTheDead.MOD_ID, Registries.LOOT_CONDITION_TYPE);
 
-    public static final RegistrySupplier<LootItemConditionType> MATCH_SHEARS = LOOT_CONDITIONS.register("match_shears", () -> new LootItemConditionType(new MatchShears.Serializer()));
+    public static final RegistrySupplier<LootItemConditionType> MATCH_SHEARS = LOOT_CONDITIONS.register("match_shears", () -> new LootItemConditionType(MatchShears.CODEC));
 
 }

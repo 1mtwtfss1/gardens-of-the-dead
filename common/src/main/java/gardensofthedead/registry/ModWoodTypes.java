@@ -51,7 +51,7 @@ public class ModWoodTypes {
 
     public static void register() {
         for (WoodType woodType : VALUES) {
-            String name = new ResourceLocation(woodType.name()).getPath();
+            String name = ResourceLocation.parse(woodType.name()).getPath();
             Sheets.SIGN_MATERIALS.put(woodType, new Material(SIGN_SHEET, GardensOfTheDead.id("entity/signs/" + name)));
             Sheets.HANGING_SIGN_MATERIALS.put(woodType, new Material(SIGN_SHEET, GardensOfTheDead.id("entity/signs/hanging/" + name)));
         }

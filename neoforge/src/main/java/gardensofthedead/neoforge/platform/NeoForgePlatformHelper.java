@@ -1,8 +1,10 @@
 package gardensofthedead.neoforge.platform;
 
+import com.mojang.serialization.MapCodec;
 import dev.architectury.registry.registries.RegistrySupplier;
 import gardensofthedead.neoforge.block.StrippableLogBlock;
 import gardensofthedead.platform.PlatformHelper;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -11,8 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.ToolActions;
 
 import java.util.function.Supplier;
 
@@ -48,7 +49,7 @@ public class NeoForgePlatformHelper implements PlatformHelper {
 
     @Override
     public BlockBehaviour.Properties copyBlockProperties(BlockBehaviour.Properties properties) {
-        return BlockBehaviour.Properties.copy(new BlockBehaviour(properties) {
+        return BlockBehaviour.Properties.ofLegacyCopy(new BlockBehaviour(properties) {
             @Override
             public Item asItem() {
                 throw new UnsupportedOperationException();
@@ -58,11 +59,16 @@ public class NeoForgePlatformHelper implements PlatformHelper {
             protected Block asBlock() {
                 throw new UnsupportedOperationException();
             }
+
+            @Override
+            protected MapCodec<? extends Block> codec() {
+                return MapCodec.unit(Blocks.AIR);
+            }
         });
     }
 
     @Override
     public BlockBehaviour.Properties copyBlockPropertiesWithLoot(BlockBehaviour.Properties properties, ResourceLocation id) {
-        return copyBlockProperties(properties).lootFrom(() -> ForgeRegistries.BLOCKS.getValue(id));
+        return copyBlockProperties(properties).lootFrom(() -> BuiltInRegistries.BLOCK.get(id));
     }
 }

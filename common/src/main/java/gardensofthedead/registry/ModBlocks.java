@@ -111,11 +111,10 @@ public class ModBlocks {
 
     private static ButtonBlock woodenButton(BlockSetType blockSetType) {
         int ticksToStayPressed = 30;
-        boolean arrowsCanPress = true;
-        return button(ticksToStayPressed, arrowsCanPress, blockSetType);
+        return button(ticksToStayPressed, blockSetType);
     }
 
-    private static ButtonBlock button(int ticksToStayPressed, boolean arrowsCanPress, BlockSetType blockSetType) {
+    private static ButtonBlock button(int ticksToStayPressed, BlockSetType blockSetType) {
         BlockBehaviour.Properties properties = BlockBehaviour.Properties
                 .of()
                 .noCollission()
@@ -123,7 +122,7 @@ public class ModBlocks {
                 .pushReaction(PushReaction.DESTROY)
                 .sound(blockSetType.soundType());
 
-        return new ButtonBlock(properties, blockSetType, ticksToStayPressed, arrowsCanPress);
+        return new ButtonBlock(blockSetType, ticksToStayPressed, properties);
     }
 
     private static PressurePlateBlock pressurePlate(Properties baseProperties, BlockSetType blockSetType) {
@@ -131,14 +130,14 @@ public class ModBlocks {
                 .noCollission()
                 .strength(0.5F);
 
-        return new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, properties, blockSetType);
+        return new PressurePlateBlock(blockSetType, properties);
     }
 
     private static FenceGateBlock fenceGate(Properties baseProperties, WoodType woodType) {
         Properties properties = ModBlockProperties.copy(baseProperties)
                 .strength(2, 3);
 
-        return new FenceGateBlock(properties, woodType);
+        return new FenceGateBlock(woodType, properties);
     }
 
     private static DoorBlock door(Properties baseProperties, BlockSetType blockSetType) {
@@ -146,7 +145,7 @@ public class ModBlocks {
                 .strength(3)
                 .noOcclusion();
 
-        return new DoorBlock(properties, blockSetType);
+        return new DoorBlock(blockSetType, properties);
     }
 
     private static TrapDoorBlock trapDoor(Properties baseProperties, BlockSetType blockSetType) {
@@ -155,21 +154,21 @@ public class ModBlocks {
                 .noOcclusion()
                 .isValidSpawn(ModBlockProperties::never);
 
-        return new TrapDoorBlock(properties, blockSetType);
+        return new TrapDoorBlock(blockSetType, properties);
     }
 
     private static StandingSignBlock sign(Properties baseProperties, WoodType woodType) {
         Properties properties = ModBlockProperties.copy(baseProperties)
                 .strength(1)
                 .noCollission();
-        return new StandingSignBlock(properties, woodType);
+        return new StandingSignBlock(woodType, properties);
     }
 
     private static WallSignBlock wallSign(Properties baseProperties, RegistrySupplier<?> signBlock, WoodType woodType) {
         Properties properties = ModBlockProperties.copyWithLoot(baseProperties, signBlock.getId())
                 .strength(1)
                 .noCollission();
-        return new WallSignBlock(properties, woodType);
+        return new WallSignBlock(woodType, properties);
     }
 
     private static CeilingHangingSignBlock hangingSign(Properties baseProperties, SoundType soundType, WoodType woodType) {
@@ -177,7 +176,7 @@ public class ModBlocks {
                 .sound(soundType)
                 .strength(1)
                 .noCollission();
-        return new CeilingHangingSignBlock(properties, woodType);
+        return new CeilingHangingSignBlock(woodType, properties);
     }
 
     private static WallHangingSignBlock wallHangingSign(Properties baseProperties, RegistrySupplier<?> signBlock, SoundType soundType, WoodType woodType) {
@@ -185,6 +184,6 @@ public class ModBlocks {
                 .sound(soundType)
                 .strength(1)
                 .noCollission();
-        return new WallHangingSignBlock(properties, woodType);
+        return new WallHangingSignBlock(woodType, properties);
     }
 }

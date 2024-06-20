@@ -1,13 +1,13 @@
-package gardensofthedead.neoforge.datagen.providers;
+package gardensofthedead.neoforge.datagen;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.registry.ModSoundEvents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.SoundDefinition;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.SoundDefinition;
 
-public class SoundDefinitionsProvider extends net.minecraftforge.common.data.SoundDefinitionsProvider {
+public class SoundDefinitionsProvider extends net.neoforged.neoforge.common.data.SoundDefinitionsProvider {
 
     public SoundDefinitionsProvider(PackOutput packOutput, ExistingFileHelper helper) {
         super(packOutput, GardensOfTheDead.MOD_ID, helper);
@@ -45,9 +45,9 @@ public class SoundDefinitionsProvider extends net.minecraftforge.common.data.Sou
 
     private SoundDefinition addWithDefaultMusic(SoundEvent soundEvent) {
         return add(soundEvent)
-                .with(sound("music/game/nether/nether1").stream())
-                .with(sound("music/game/nether/nether2").stream())
-                .with(sound("music/game/nether/nether3").stream())
-                .with(sound("music/game/nether/nether4").stream());
+                .with(sound("music/game/nether/ballad_of_the_cats").stream())
+                .with(sound("music/game/nether/concrete_halls").stream())
+                .with(sound("music/game/nether/dead_voxel").stream())
+                .with(sound("music/game/nether/warmth").stream());
     }
 }

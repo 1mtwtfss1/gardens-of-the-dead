@@ -1,5 +1,6 @@
 package gardensofthedead.block;
 
+import com.mojang.serialization.MapCodec;
 import gardensofthedead.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -25,7 +26,11 @@ public class BlistercrownBlock extends BushBlock implements BonemealableBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
+    protected MapCodec<? extends BushBlock> codec() {
+        return MapCodec.unit(this);
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
@@ -36,7 +41,7 @@ public class BlistercrownBlock extends BushBlock implements BonemealableBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
+    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
         return false;
     }
 

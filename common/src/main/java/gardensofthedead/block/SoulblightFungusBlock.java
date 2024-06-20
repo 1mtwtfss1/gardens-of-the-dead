@@ -24,7 +24,7 @@ public class SoulblightFungusBlock extends FungusBlock {
     public static final Block REQUIRED_BLOCK = Blocks.SOUL_SOIL;
 
     public SoulblightFungusBlock(BlockBehaviour.Properties properties) {
-        super(properties, SOULBLIGHT_FUNGUS_PLANTED, REQUIRED_BLOCK);
+        super(SOULBLIGHT_FUNGUS_PLANTED, REQUIRED_BLOCK, properties);
     }
 
     @Override

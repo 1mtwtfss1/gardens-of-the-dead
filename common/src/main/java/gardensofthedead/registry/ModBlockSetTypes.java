@@ -43,6 +43,9 @@ public class ModBlockSetTypes {
     private static BlockSetType register(String name, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn) {
         BlockSetType result = new BlockSetType(GardensOfTheDead.id(name).toString(),
                 true,
+                true,
+                true,
+                BlockSetType.PressurePlateSensitivity.EVERYTHING,
                 soundType,
                 doorClose,
                 doorOpen,

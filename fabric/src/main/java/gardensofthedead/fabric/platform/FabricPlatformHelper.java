@@ -4,6 +4,8 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import gardensofthedead.platform.PlatformHelper;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
@@ -51,7 +53,7 @@ public class FabricPlatformHelper implements PlatformHelper {
 
     @Override
     public BlockBehaviour.Properties copyBlockPropertiesWithLoot(BlockBehaviour.Properties properties, ResourceLocation id) {
-        ResourceLocation lootTable = new ResourceLocation(id.getNamespace(), "blocks/" + id.getPath());
-        return FabricBlockSettings.copyOf(properties).drops(lootTable);
+        ResourceLocation lootTable = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "blocks/" + id.getPath());
+        return FabricBlockSettings.copyOf(properties).drops(ResourceKey.create(Registries.LOOT_TABLE, lootTable));
     }
 }

@@ -1,4 +1,4 @@
-package gardensofthedead.neoforge.datagen.providers;
+package gardensofthedead.neoforge.datagen;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.registry.ModBiomes;
@@ -7,8 +7,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -26,7 +26,9 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
                 ModBiomes.SOULBLIGHT_FOREST,
                 ModBiomes.WHISTLING_WOODS
         )) {
+            // used by has_nether_fortress, has_ruined_portal_nether
             tag(BiomeTags.IS_NETHER).add(biome);
+            tag(BiomeTags.SNOW_GOLEM_MELTS);
             tag(Tags.Biomes.IS_DRY_NETHER).add(biome);
             tag(Tags.Biomes.IS_HOT_NETHER).add(biome);
         }
@@ -38,6 +40,16 @@ public class BiomeTagsProvider extends net.minecraft.data.tags.BiomeTagsProvider
 
         tag(BiomeTags.HAS_NETHER_FOSSIL).add(
                 ModBiomes.SOULBLIGHT_FOREST
+        );
+
+        tag(Tags.Biomes.IS_DENSE_VEGETATION_NETHER).add(
+                ModBiomes.SOULBLIGHT_FOREST,
+                ModBiomes.WHISTLING_WOODS
+        );
+
+        tag(Tags.Biomes.IS_NETHER_FOREST).add(
+                ModBiomes.SOULBLIGHT_FOREST,
+                ModBiomes.WHISTLING_WOODS
         );
     }
 }

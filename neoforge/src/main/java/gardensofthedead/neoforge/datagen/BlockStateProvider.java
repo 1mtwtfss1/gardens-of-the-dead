@@ -1,4 +1,4 @@
-package gardensofthedead.neoforge.datagen.providers;
+package gardensofthedead.neoforge.datagen;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.block.SoulSporeBaseBlock;
@@ -6,6 +6,7 @@ import gardensofthedead.block.SoulSporeBlock;
 import gardensofthedead.neoforge.datagen.registry.ModBlockFamilies;
 import gardensofthedead.registry.ModBlocks;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -13,18 +14,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
-import static net.minecraftforge.client.model.generators.ModelProvider.ITEM_FOLDER;
+import static net.neoforged.neoforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
+import static net.neoforged.neoforge.client.model.generators.ModelProvider.ITEM_FOLDER;
 
-public class BlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
+public class BlockStateProvider extends net.neoforged.neoforge.client.model.generators.BlockStateProvider {
 
     private static final String CUTOUT = "cutout";
 
@@ -142,13 +142,13 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         String gateTexture = BLOCK_FOLDER + "/" + fenceGate;
         String planksTexture = BLOCK_FOLDER + "/" + getName(ModBlocks.WHISTLECANE_PLANKS.get());
 
-        ModelFile gate = models().withExistingParent(fenceGate, new ResourceLocation(gateParent))
+        ModelFile gate = models().withExistingParent(fenceGate, ResourceLocation.parse(gateParent))
                 .texture("texture", gateTexture).texture("particle", planksTexture);
-        ModelFile gateOpen = models().withExistingParent(fenceGate + "_open", new ResourceLocation(gateParent + "_open"))
+        ModelFile gateOpen = models().withExistingParent(fenceGate + "_open", ResourceLocation.parse(gateParent + "_open"))
                 .texture("texture", gateTexture).texture("particle", planksTexture);
-        ModelFile gateWall = models().withExistingParent(fenceGate + "_wall", new ResourceLocation(gateParent + "_wall"))
+        ModelFile gateWall = models().withExistingParent(fenceGate + "_wall", ResourceLocation.parse(gateParent + "_wall"))
                 .texture("texture", gateTexture).texture("particle", planksTexture);
-        ModelFile gateWallOpen = models().withExistingParent(fenceGate + "_wall_open", new ResourceLocation(gateParent + "_wall_open"))
+        ModelFile gateWallOpen = models().withExistingParent(fenceGate + "_wall_open", ResourceLocation.parse(gateParent + "_wall_open"))
                 .texture("texture", gateTexture).texture("particle", planksTexture);
 
         getVariantBuilder(ModBlocks.WHISTLECANE_FENCE_GATE.get()).forAllStatesExcept(state -> {
@@ -576,7 +576,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     private void generatedItem(Item item, ResourceLocation texture) {
         // noinspection ConstantConditions
-        itemModels().getBuilder(ForgeRegistries.ITEMS.getKey(item).toString())
+        itemModels().getBuilder(BuiltInRegistries.ITEM.getKey(item).toString())
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
                 .texture("layer0", texture);
     }
@@ -606,6 +606,6 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     private static String getName(Block block) {
         // noinspection ConstantConditions
-        return ForgeRegistries.BLOCKS.getKey(block).getPath();
+        return BuiltInRegistries.BLOCK.getKey(block).getPath();
     }
 }

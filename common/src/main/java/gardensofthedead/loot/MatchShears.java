@@ -2,7 +2,9 @@ package gardensofthedead.loot;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;import gardensofthedead.platform.PlatformServices;
+import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.MapCodec;
+import gardensofthedead.platform.PlatformServices;
 import gardensofthedead.registry.ModLootConditions;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -11,6 +13,8 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 public class MatchShears implements LootItemCondition {
+
+    public static final MapCodec<MatchShears> CODEC = MapCodec.unit(new MatchShears());
 
     @Override
     public LootItemConditionType getType() {
@@ -31,18 +35,5 @@ public class MatchShears implements LootItemCondition {
 
     public static boolean test(ItemStack tool) {
         return PlatformServices.platformHelper.isShears(tool);
-    }
-
-    public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<MatchShears> {
-
-        @Override
-        public void serialize(JsonObject jsonObject, MatchShears object, JsonSerializationContext jsonSerializationContext) {
-
-        }
-
-        @Override
-        public MatchShears deserialize(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) {
-            return new MatchShears();
-        }
     }
 }

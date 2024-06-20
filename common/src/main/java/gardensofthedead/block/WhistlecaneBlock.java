@@ -27,8 +27,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class WhistlecaneBlock extends Block implements BonemealableBlock {
 
@@ -44,7 +43,6 @@ public class WhistlecaneBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Vec3 offset = state.getOffset(level, pos);
         return SHAPE.move(offset.x, offset.y, offset.z);
@@ -56,19 +54,16 @@ public class WhistlecaneBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType pathComputationType) {
-        return false;
+    protected boolean isPathfindable(BlockState blockState, PathComputationType pathComputationType) {
+        return true;
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean isCollisionShapeFullBlock(BlockState state, BlockGetter level, BlockPos pos) {
         return false;
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockState stateBelow = level.getBlockState(pos.below());
         return stateBelow.is(this)
@@ -78,7 +73,7 @@ public class WhistlecaneBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
         int heightAbove = this.getHeightAboveUpToMax(level, pos);
         int heightBelow = this.getHeightBelowUpToMax(level, pos);
         BlockState topState = level.getBlockState(pos.above(heightAbove));
@@ -111,7 +106,6 @@ public class WhistlecaneBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
         if (PlatformServices.platformHelper.isSword(player.getMainHandItem())) {
             return 1;
@@ -134,7 +128,6 @@ public class WhistlecaneBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource randomSource) {
         if (!state.canSurvive(level, pos)) {
             level.destroyBlock(pos, true);
@@ -165,7 +158,6 @@ public class WhistlecaneBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public BlockState updateShape(BlockState state, Direction direction, BlockState newState, LevelAccessor level, BlockPos pos, BlockPos updatedPos) {
         if (!state.canSurvive(level, pos)) {
             level.scheduleTick(pos, this, 1);
@@ -178,7 +170,6 @@ public class WhistlecaneBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource randomSource) {
         if (state.getValue(GROWING)) {
             int height = getHeightBelowUpToMax(level, pos) + 1;
@@ -202,6 +193,6 @@ public class WhistlecaneBlock extends Block implements BonemealableBlock {
     }
 
     private void sendWhistlePacket(ServerLevel level, BlockPos pos) {
-        NetworkHandler.sendToTrackingPlayers(level, pos, new WhistleEffectPacket(pos, level));
+        NetworkHandler.sendToTrackingPlayers(level, pos, new WhistleEffectPacket(pos, level.dimension()));
     }
 }

@@ -1,11 +1,13 @@
 package gardensofthedead.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -41,19 +43,22 @@ public class WhistlecaneFenceBlock extends CrossCollisionBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
+    protected MapCodec<? extends CrossCollisionBlock> codec() {
+        return MapCodec.unit(this);
+    }
+
+    @Override
     public VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
         return this.occlusionByIndex[this.getAABBIndex(state)];
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return this.getShape(state, level, pos, context);
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType pathComputationType) {
+    protected boolean isPathfindable(BlockState blockState, PathComputationType pathComputationType) {
         return false;
     }
 
@@ -69,12 +74,11 @@ public class WhistlecaneFenceBlock extends CrossCollisionBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
         if (player.getItemInHand(hand).is(Items.LEAD)) {
-            return InteractionResult.FAIL;
+            return ItemInteractionResult.FAIL;
         }
-        return super.use(state, level, pos, player, hand, blockHitResult);
+        return super.useItemOn(stack, state, level, pos, player, hand, blockHitResult);
     }
 
     @Override
@@ -100,7 +104,6 @@ public class WhistlecaneFenceBlock extends CrossCollisionBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public BlockState updateShape(BlockState state, Direction direction, BlockState newState, LevelAccessor level, BlockPos pos, BlockPos updatedPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));

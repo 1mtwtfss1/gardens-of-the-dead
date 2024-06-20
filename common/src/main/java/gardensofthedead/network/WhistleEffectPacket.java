@@ -1,42 +1,44 @@
 package gardensofthedead.network;
 
 import dev.architectury.networking.NetworkManager;
+import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.client.WhistleEventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 
-import java.util.function.Supplier;
+public record WhistleEffectPacket(BlockPos pos, ResourceKey<Level> dimension) implements CustomPacketPayload {
 
-public class WhistleEffectPacket {
+    public static final Type<WhistleEffectPacket> TYPE = new Type<>(GardensOfTheDead.id("whistle_effect"));
 
-    private final BlockPos pos;
-    private final ResourceKey<Level> dimension;
-
-    public WhistleEffectPacket(BlockPos pos, Level level) {
-        this.pos = pos;
-        this.dimension = level.dimension();
-    }
-
-    public WhistleEffectPacket(FriendlyByteBuf buffer) {
-        pos = buffer.readBlockPos();
-        dimension = buffer.readResourceKey(Registries.DIMENSION);
-    }
+    public static final StreamCodec<FriendlyByteBuf, WhistleEffectPacket> CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC,
+            WhistleEffectPacket::pos,
+            ResourceKey.streamCodec(Registries.DIMENSION),
+            WhistleEffectPacket::dimension,
+            WhistleEffectPacket::new
+    );
 
     void encode(FriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
         buffer.writeResourceKey(dimension);
     }
 
-    void apply(Supplier<NetworkManager.PacketContext> context) {
-        context.get().queue(() -> {
+    void apply(NetworkManager.PacketContext context) {
+        context.queue(() -> {
             if (Minecraft.getInstance().level != null && Minecraft.getInstance().level.dimension().equals(dimension)) {
                 WhistleEventHandler.add(pos);
             }
         });
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

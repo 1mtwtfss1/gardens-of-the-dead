@@ -1,13 +1,14 @@
-package gardensofthedead.neoforge.datagen.providers;
+package gardensofthedead.neoforge.datagen;
 
 import gardensofthedead.registry.ModBiomes;
 import gardensofthedead.registry.ModParticleTypes;
 import gardensofthedead.registry.ModSoundEvents;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.NetherPlacements;
@@ -21,11 +22,10 @@ import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class BiomeProvider {
 
-    public static void create(BootstapContext<Biome> context) {
+    public static void create(BootstrapContext<Biome> context) {
         HolderGetter<PlacedFeature> features = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> carvers = context.lookup(Registries.CONFIGURED_CARVER);
 
@@ -93,7 +93,7 @@ public class BiomeProvider {
                                 .ambientLoopSound(SoundEvents.AMBIENT_CRIMSON_FOREST_LOOP)
                                 .ambientMoodSound(new AmbientMoodSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_MOOD, 6000, 8, 2))
                                 .ambientAdditionsSound(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.0111))
-                                .backgroundMusic(Musics.createGameMusic(ForgeRegistries.SOUND_EVENTS.getDelegateOrThrow(ModSoundEvents.SOULBLIGHT_FOREST_MUSIC.get()))).build())
+                                .backgroundMusic(Musics.createGameMusic(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(ModSoundEvents.SOULBLIGHT_FOREST_MUSIC.get()))).build())
                 .mobSpawnSettings(spawnSettings)
                 .generationSettings(generationSettings.build())
                 .build();
@@ -139,7 +139,7 @@ public class BiomeProvider {
                                 .ambientLoopSound(SoundEvents.AMBIENT_CRIMSON_FOREST_LOOP)
                                 .ambientMoodSound(new AmbientMoodSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_MOOD, 6000, 8, 2))
                                 .ambientAdditionsSound(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.0111))
-                                .backgroundMusic(Musics.createGameMusic(ForgeRegistries.SOUND_EVENTS.getDelegateOrThrow(ModSoundEvents.WHISTLING_WOODS_MUSIC.get()))).build())
+                                .backgroundMusic(Musics.createGameMusic(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(ModSoundEvents.WHISTLING_WOODS_MUSIC.get()))).build())
                 .mobSpawnSettings(spawnSettings)
                 .generationSettings(generationSettings.build())
                 .build();

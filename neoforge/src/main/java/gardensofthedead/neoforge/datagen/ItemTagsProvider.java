@@ -1,7 +1,6 @@
-package gardensofthedead.neoforge.datagen.providers;
+package gardensofthedead.neoforge.datagen;
 
 import gardensofthedead.GardensOfTheDead;
-import gardensofthedead.neoforge.datagen.registry.CommonTags;
 import gardensofthedead.registry.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -10,8 +9,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -31,7 +29,6 @@ public class ItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider {
 
         copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
         copy(BlockTags.FENCE_GATES, ItemTags.FENCE_GATES);
-        copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
 
         copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
         copy(BlockTags.PLANKS, ItemTags.PLANKS);
@@ -43,11 +40,8 @@ public class ItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider {
         copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
         copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
 
-        copy(CommonTags.Blocks.FENCE_GATES, CommonTags.Items.FENCE_GATES);
-        copy(CommonTags.Blocks.MUSHROOMS, CommonTags.Items.MUSHROOMS);
-
         tag(ItemTags.NON_FLAMMABLE_WOOD).add(
-                gardensofthedead.neoforge.datagen.providers.BlockTagsProvider.NON_FLAMMABLE_WOOD_ITEMS
+                BlockTagsProvider.NON_FLAMMABLE_WOOD_ITEMS
                         .stream()
                         .map(Block::asItem)
                         .toArray(Item[]::new)

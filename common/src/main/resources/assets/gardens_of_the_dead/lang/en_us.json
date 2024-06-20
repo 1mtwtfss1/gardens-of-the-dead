@@ -46,5 +46,7 @@
   "block.gardens_of_the_dead.whistlecane_trapdoor": "Whistlecane Trapdoor",
   "block.gardens_of_the_dead.whistlecane_sign": "Whistlecane Sign",
   "block.gardens_of_the_dead.whistlecane_hanging_sign": "Whistlecane Hanging Sign",
-  "gardens_of_the_dead.subtitle.block.whistlecane.whistle": "Whistlecane whistles"
+  "gardens_of_the_dead.subtitle.block.whistlecane.whistle": "Whistlecane whistles",
+  "tag.item.gardens_of_the_dead.soulblight_stems": "Soulblight Stems",
+  "tag.item.gardens_of_the_dead.whistlecane_blocks": "Whistlecane Blocks"
 }

@@ -1,4 +1,4 @@
-package gardensofthedead.neoforge.datagen.providers;
+package gardensofthedead.neoforge.datagen;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.placementmodifier.CountOnEveryCeilingPlacement;
@@ -7,7 +7,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.NetherFeatures;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -29,7 +29,7 @@ public class PlacedFeatureProvider {
     private static final Map<ResourceKey<PlacedFeature>, ResourceKey<ConfiguredFeature<?, ?>>> CONFIGURED_FEATURES = new HashMap<>();
     private static final Map<ResourceKey<PlacedFeature>, Supplier<List<PlacementModifier>>> PLACEMENT_MODIFIERS = new HashMap<>();
 
-    public static void create(BootstapContext<PlacedFeature> context) {
+    public static void create(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
         for (ResourceKey<PlacedFeature> key : PLACEMENT_MODIFIERS.keySet()) {
             Holder<ConfiguredFeature<?, ?>> configuredFeature = configuredFeatures.getOrThrow(CONFIGURED_FEATURES.get(key));

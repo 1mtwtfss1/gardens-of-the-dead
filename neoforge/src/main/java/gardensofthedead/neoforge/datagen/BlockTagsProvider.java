@@ -1,28 +1,24 @@
-package gardensofthedead.neoforge.datagen.providers;
+package gardensofthedead.neoforge.datagen;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.block.StandingSignBlock;
 import gardensofthedead.block.WallHangingSignBlock;
 import gardensofthedead.block.WallSignBlock;
-import gardensofthedead.neoforge.datagen.registry.CommonTags;
 import gardensofthedead.registry.ModBlocks;
 import gardensofthedead.registry.ModTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CeilingHangingSignBlock;
-import net.minecraft.world.level.block.FenceGateBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.level.block.*;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class BlockTagsProvider extends net.minecraftforge.common.data.BlockTagsProvider {
+public class BlockTagsProvider extends net.neoforged.neoforge.common.data.BlockTagsProvider {
 
     public BlockTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         super(packOutput, lookupProvider, GardensOfTheDead.MOD_ID, existingFileHelper);
@@ -58,24 +54,23 @@ public class BlockTagsProvider extends net.minecraftforge.common.data.BlockTagsP
 
     @Override
     protected void addTags(HolderLookup.Provider lookup) {
-        ForgeRegistries.BLOCKS.getValues()
-                .stream()
-                .filter(block -> Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getNamespace().equals(GardensOfTheDead.MOD_ID))
+        BuiltInRegistries.BLOCK.stream()
+                .filter(block -> Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getNamespace().equals(GardensOfTheDead.MOD_ID))
                 .forEach(block -> {
-                    if (block instanceof FlowerPotBlock) {
-                        tag(BlockTags.FLOWER_POTS).add(block);
-                    } else if (block instanceof StandingSignBlock) {
-                        tag(BlockTags.STANDING_SIGNS).add(block);
-                    } else if (block instanceof WallSignBlock) {
-                        tag(BlockTags.WALL_SIGNS).add(block);
-                    } else if (block instanceof CeilingHangingSignBlock) {
-                        tag(BlockTags.CEILING_HANGING_SIGNS).add(block);
-                    } else if (block instanceof WallHangingSignBlock) {
-                        tag(BlockTags.WALL_HANGING_SIGNS).add(block);
-                    } else if (block instanceof FenceGateBlock) {
-                        tag(Tags.Blocks.FENCE_GATES_WOODEN).add(block);
-                        tag(CommonTags.Blocks.FENCE_GATES).add(block);
-                        tag(BlockTags.FENCE_GATES).add(block);
+                    switch (block) {
+                        case FlowerPotBlock flowerPotBlock ->
+                                tag(BlockTags.FLOWER_POTS).add(flowerPotBlock);
+                        case StandingSignBlock standingSignBlock ->
+                                tag(BlockTags.STANDING_SIGNS).add(standingSignBlock);
+                        case WallSignBlock wallSignBlock ->
+                                tag(BlockTags.WALL_SIGNS).add(wallSignBlock);
+                        case CeilingHangingSignBlock ceilingHangingSignBlock ->
+                                tag(BlockTags.CEILING_HANGING_SIGNS).add(ceilingHangingSignBlock);
+                        case WallHangingSignBlock wallHangingSignBlock ->
+                                tag(BlockTags.WALL_HANGING_SIGNS).add(wallHangingSignBlock);
+                        case FenceGateBlock fenceGateBlock ->
+                                tag(BlockTags.FENCE_GATES).add(fenceGateBlock);
+                        default -> { }
                     }
                 });
 
@@ -151,10 +146,6 @@ public class BlockTagsProvider extends net.minecraftforge.common.data.BlockTagsP
         tag(BlockTags.WOODEN_STAIRS).add(
                 ModBlocks.SOULBLIGHT_STAIRS.get(),
                 ModBlocks.WHISTLECANE_STAIRS.get()
-        );
-
-        tag(CommonTags.Blocks.MUSHROOMS).add(
-                ModBlocks.SOULBLIGHT_FUNGUS.get()
         );
     }
 }

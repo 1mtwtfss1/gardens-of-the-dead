@@ -1,6 +1,6 @@
 package gardensofthedead.placementmodifier;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import gardensofthedead.registry.ModPlacementModifiers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -17,11 +17,10 @@ import java.util.stream.Stream;
 
 public class CountOnEveryCeilingPlacement extends PlacementModifier {
 
-    public static final Codec<CountOnEveryCeilingPlacement> CODEC =
+    public static final MapCodec<CountOnEveryCeilingPlacement> CODEC =
             IntProvider.codec(0, 256)
                     .fieldOf("count")
-                    .xmap(CountOnEveryCeilingPlacement::new, (placementModifier) -> placementModifier.count)
-                    .codec();
+                    .xmap(CountOnEveryCeilingPlacement::new, (placementModifier) -> placementModifier.count);
 
     private final IntProvider count;
 

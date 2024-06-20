@@ -1,4 +1,4 @@
-package gardensofthedead.neoforge.datagen.providers;
+package gardensofthedead.neoforge.datagen;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.block.WallHangingSignBlock;
@@ -6,8 +6,9 @@ import gardensofthedead.block.WallSignBlock;
 import gardensofthedead.loot.MatchShears;
 import gardensofthedead.registry.ModBlocks;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -22,9 +23,9 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider {
 
@@ -32,8 +33,8 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
 
     private final Set<Block> blocksWithLootAdded = new HashSet<>();
 
-    public LootTableProvider(PackOutput packOutput) {
-        super(packOutput, Set.of(), List.of());
+    public LootTableProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> provider) {
+        super(packOutput, Set.of(), List.of(), provider);
     }
 
     @Override
@@ -41,10 +42,10 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
         lootTables.clear();
         blocksWithLootAdded.clear();
 
-        ForgeRegistries.BLOCKS.getKeys()
+        BuiltInRegistries.BLOCK.keySet()
                 .stream()
                 .filter(k -> k.getNamespace().equals(GardensOfTheDead.MOD_ID))
-                .map(ForgeRegistries.BLOCKS::getValue)
+                .map(BuiltInRegistries.BLOCK::get)
                 .filter(block -> block instanceof WallSignBlock || block instanceof WallHangingSignBlock)
                 .forEach(this::noLoot);
 
@@ -58,17 +59,14 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
 
         addDefaultDrops(ModBlocks.WHISTLECANE.get());
 
-        for (Block block : ForgeRegistries.BLOCKS.getValues()) {
+        for (Block block : BuiltInRegistries.BLOCK.stream().toList()) {
             // noinspection ConstantConditions
-            if (!blocksWithLootAdded.contains(block) && ForgeRegistries.BLOCKS.getKey(block).getNamespace().equals(GardensOfTheDead.MOD_ID)) {
-                if (block instanceof FlowerPotBlock pottedPlant) {
-                    addPottedPlants(pottedPlant);
-                } else if (block instanceof DoorBlock doorBlock) {
-                    addDoor(doorBlock);
-                } else if (block instanceof SlabBlock slabBlock) {
-                    addSlab(slabBlock);
-                } else {
-                    addDefaultDrops(block);
+            if (!blocksWithLootAdded.contains(block) && BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(GardensOfTheDead.MOD_ID)) {
+                switch (block) {
+                    case FlowerPotBlock pottedPlant -> addPottedPlants(pottedPlant);
+                    case DoorBlock doorBlock -> addDoor(doorBlock);
+                    case SlabBlock slabBlock -> addSlab(slabBlock);
+                    default -> addDefaultDrops(block);
                 }
             }
         }
@@ -91,7 +89,7 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
     private void addPottedPlants(FlowerPotBlock... blocks) {
         for (FlowerPotBlock block : blocks) {
             Block emptyPot = block.getEmptyPot();
-            Block content = block.getContent();
+            Block content = block.getPotted();
 
             addBlockLootTable(block, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
@@ -151,15 +149,10 @@ public class LootTableProvider extends net.minecraft.data.loot.LootTableProvider
 
     private void addBlockLootTable(Block block, LootTable.Builder lootTable) {
         blocksWithLootAdded.add(block);
-        lootTables.add(new SubProviderEntry(() -> lootBuilder -> lootBuilder.accept(block.getLootTable(), lootTable), LootContextParamSets.BLOCK));
+        lootTables.add(new SubProviderEntry(provider -> lootBuilder -> lootBuilder.accept(block.getLootTable(), lootTable), LootContextParamSets.BLOCK));
     }
 
     private void noLoot(Block... blocks) {
         blocksWithLootAdded.addAll(Set.of(blocks));
-    }
-
-    @Override
-    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationContext) {
-        map.forEach((location, lootTable) -> lootTable.validate(validationContext.setParams(lootTable.getParamSet()).enterElement("{" + location + "}", new LootDataId<>(LootDataType.TABLE, location))));
     }
 }

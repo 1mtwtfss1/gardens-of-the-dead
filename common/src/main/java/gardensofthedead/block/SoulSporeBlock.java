@@ -72,7 +72,6 @@ public class SoulSporeBlock extends SoulSporeBaseBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource randomSource) {
         Direction direction = state.getValue(DIRECTION);
         if (randomSource.nextFloat() < 0.1F && level.isEmptyBlock(pos.relative(direction))) {

@@ -1,5 +1,6 @@
 package gardensofthedead.neoforge;
 
+import gardensofthedead.GardensOfTheDeadClient;
 import gardensofthedead.client.particle.SoulblightSporeProvider;
 import gardensofthedead.client.particle.WhistlecaneSmokeParticle;
 import gardensofthedead.registry.ModBlockEntityTypes;
@@ -8,32 +9,31 @@ import gardensofthedead.registry.ModWoodTypes;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
 public class GardensOfTheDeadNeoForgeClient {
 
-    public static void init() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public GardensOfTheDeadNeoForgeClient(IEventBus modBus) {
+        GardensOfTheDeadClient.init();
 
-        modEventBus.addListener(GardensOfTheDeadNeoForgeClient::onClientSetup);
-        modEventBus.addListener(GardensOfTheDeadNeoForgeClient::onRegisterRenderers);
-        modEventBus.addListener(GardensOfTheDeadNeoForgeClient::onRegisterParticleProviders);
+        modBus.addListener(this::onClientSetup);
+        modBus.addListener(this::onRegisterRenderers);
+        modBus.addListener(this::onRegisterParticleProviders);
     }
 
-    public static void onClientSetup(FMLClientSetupEvent event) {
+    private void onClientSetup(FMLClientSetupEvent event) {
         BlockEntityRenderers.register(ModBlockEntityTypes.SIGN.get(), SignRenderer::new);
         BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_SIGN.get(), HangingSignRenderer::new);
     }
 
-    public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    private void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         ModWoodTypes.register();
     }
 
-    public static void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
+    private void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ModParticleTypes.SOULBLIGHT_SPORE.get(), SoulblightSporeProvider::new);
         event.registerSpriteSet(ModParticleTypes.WHISTLECANE_SMOKE.get(), WhistlecaneSmokeParticle.Provider::new);
     }

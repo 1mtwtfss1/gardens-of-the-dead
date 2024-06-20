@@ -1,32 +1,29 @@
 package gardensofthedead.neoforge;
 
-import dev.architectury.platform.forge.EventBuses;
 import gardensofthedead.GardensOfTheDead;
-import gardensofthedead.GardensOfTheDeadClient;
 import gardensofthedead.neoforge.region.GardensOfTheDeadNeoForgeRegion;
 import gardensofthedead.registry.*;
 import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
+import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 
 @Mod(GardensOfTheDead.MOD_ID)
 public class GardensOfTheDeadNeoForge {
 
-    public GardensOfTheDeadNeoForge() {
-        EventBuses.registerModEventBus(GardensOfTheDead.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
-
+    public GardensOfTheDeadNeoForge(IEventBus modBus) {
         GardensOfTheDead.init();
-        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> GardensOfTheDeadClient::init);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            new GardensOfTheDeadNeoForgeClient(modBus);
+        }
 
-        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> GardensOfTheDeadNeoForgeClient::init);
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.addListener(this::commonSetup);
+        modBus.addListener(this::commonSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
