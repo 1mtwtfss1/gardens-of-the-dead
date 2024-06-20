@@ -1,7 +1,7 @@
-package gardensofthedead.data;
+package gardensofthedead.forge.datagen;
 
 import gardensofthedead.GardensOfTheDead;
-import gardensofthedead.data.providers.*;
+import gardensofthedead.forge.datagen.providers.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.RegistrySetBuilder;

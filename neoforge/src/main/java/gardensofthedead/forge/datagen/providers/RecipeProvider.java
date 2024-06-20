@@ -1,6 +1,6 @@
-package gardensofthedead.data.providers;
+package gardensofthedead.forge.datagen.providers;
 
-import gardensofthedead.data.registry.ModBlockFamilies;
+import gardensofthedead.forge.datagen.registry.ModBlockFamilies;
 import gardensofthedead.registry.ModBlocks;
 import gardensofthedead.registry.ModTags;
 import net.minecraft.data.PackOutput;

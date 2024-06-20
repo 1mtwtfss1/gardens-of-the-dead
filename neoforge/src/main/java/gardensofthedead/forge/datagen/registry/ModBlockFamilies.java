@@ -1,4 +1,4 @@
-package gardensofthedead.data.registry;
+package gardensofthedead.forge.datagen.registry;
 
 import com.google.common.collect.Maps;
 import gardensofthedead.registry.ModBlocks;

@@ -1,9 +1,9 @@
-package gardensofthedead.data.providers;
+package gardensofthedead.forge.datagen.providers;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.block.SoulSporeBaseBlock;
 import gardensofthedead.block.SoulSporeBlock;
-import gardensofthedead.data.registry.ModBlockFamilies;
+import gardensofthedead.forge.datagen.registry.ModBlockFamilies;
 import gardensofthedead.registry.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.BlockFamily;

@@ -1,4 +1,4 @@
-package gardensofthedead.data.providers;
+package gardensofthedead.forge.datagen.providers;
 
 import gardensofthedead.registry.ModBiomes;
 import gardensofthedead.registry.ModParticleTypes;

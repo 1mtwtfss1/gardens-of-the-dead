@@ -1,10 +1,10 @@
-package gardensofthedead.data.providers;
+package gardensofthedead.forge.datagen.providers;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.block.StandingSignBlock;
 import gardensofthedead.block.WallHangingSignBlock;
 import gardensofthedead.block.WallSignBlock;
-import gardensofthedead.data.registry.CommonTags;
+import gardensofthedead.forge.datagen.registry.CommonTags;
 import gardensofthedead.registry.ModBlocks;
 import gardensofthedead.registry.ModTags;
 import net.minecraft.core.HolderLookup;
