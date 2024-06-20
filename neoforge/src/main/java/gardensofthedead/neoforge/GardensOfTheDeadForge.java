@@ -1,9 +1,9 @@
-package gardensofthedead.forge;
+package gardensofthedead.neoforge;
 
 import dev.architectury.platform.forge.EventBuses;
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.GardensOfTheDeadClient;
-import gardensofthedead.forge.region.GardensOfTheDeadForgeRegion;
+import gardensofthedead.neoforge.region.GardensOfTheDeadForgeRegion;
 import gardensofthedead.registry.*;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.api.distmarker.Dist;

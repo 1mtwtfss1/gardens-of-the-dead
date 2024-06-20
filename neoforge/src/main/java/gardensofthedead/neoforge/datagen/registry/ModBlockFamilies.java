@@ -1,4 +1,4 @@
-package gardensofthedead.forge.datagen.registry;
+package gardensofthedead.neoforge.datagen.registry;
 
 import com.google.common.collect.Maps;
 import gardensofthedead.registry.ModBlocks;

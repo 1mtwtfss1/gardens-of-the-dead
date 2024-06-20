@@ -1,4 +1,4 @@
-package gardensofthedead.forge.datagen.providers;
+package gardensofthedead.neoforge.datagen.providers;
 
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.placementmodifier.CountOnEveryCeilingPlacement;

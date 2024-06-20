@@ -1,7 +1,7 @@
-package gardensofthedead.forge.platform;
+package gardensofthedead.neoforge.platform;
 
 import dev.architectury.registry.registries.RegistrySupplier;
-import gardensofthedead.forge.block.StrippableLogBlock;
+import gardensofthedead.neoforge.block.StrippableLogBlock;
 import gardensofthedead.platform.PlatformHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

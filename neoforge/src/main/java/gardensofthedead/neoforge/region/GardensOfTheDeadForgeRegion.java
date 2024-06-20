@@ -1,4 +1,4 @@
-package gardensofthedead.forge.region;
+package gardensofthedead.neoforge.region;
 
 import com.mojang.datafixers.util.Pair;
 import gardensofthedead.region.GardensOfTheDeadRegion;

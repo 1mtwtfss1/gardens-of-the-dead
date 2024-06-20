@@ -1,7 +1,7 @@
-package gardensofthedead.forge.datagen.providers;
+package gardensofthedead.neoforge.datagen.providers;
 
 import gardensofthedead.GardensOfTheDead;
-import gardensofthedead.forge.datagen.registry.CommonTags;
+import gardensofthedead.neoforge.datagen.registry.CommonTags;
 import gardensofthedead.registry.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -47,7 +47,7 @@ public class ItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider {
         copy(CommonTags.Blocks.MUSHROOMS, CommonTags.Items.MUSHROOMS);
 
         tag(ItemTags.NON_FLAMMABLE_WOOD).add(
-                gardensofthedead.forge.datagen.providers.BlockTagsProvider.NON_FLAMMABLE_WOOD_ITEMS
+                gardensofthedead.neoforge.datagen.providers.BlockTagsProvider.NON_FLAMMABLE_WOOD_ITEMS
                         .stream()
                         .map(Block::asItem)
                         .toArray(Item[]::new)

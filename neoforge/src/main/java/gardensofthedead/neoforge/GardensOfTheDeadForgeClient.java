@@ -1,4 +1,4 @@
-package gardensofthedead.forge;
+package gardensofthedead.neoforge;
 
 import gardensofthedead.client.particle.SoulblightSporeProvider;
 import gardensofthedead.client.particle.WhistlecaneSmokeParticle;

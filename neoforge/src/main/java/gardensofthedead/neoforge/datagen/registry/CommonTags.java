@@ -1,4 +1,4 @@
-package gardensofthedead.forge.datagen.registry;
+package gardensofthedead.neoforge.datagen.registry;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
