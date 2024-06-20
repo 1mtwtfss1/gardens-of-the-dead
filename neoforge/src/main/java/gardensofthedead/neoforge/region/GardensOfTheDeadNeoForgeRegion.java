@@ -11,9 +11,9 @@ import terrablender.api.RegionType;
 
 import java.util.function.Consumer;
 
-public class GardensOfTheDeadForgeRegion extends Region implements GardensOfTheDeadRegion {
+public class GardensOfTheDeadNeoForgeRegion extends Region implements GardensOfTheDeadRegion {
 
-    public GardensOfTheDeadForgeRegion() {
+    public GardensOfTheDeadNeoForgeRegion() {
         super(ID, RegionType.NETHER, WEIGHT);
     }
 

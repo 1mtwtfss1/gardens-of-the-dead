@@ -3,7 +3,7 @@ package gardensofthedead.neoforge;
 import dev.architectury.platform.forge.EventBuses;
 import gardensofthedead.GardensOfTheDead;
 import gardensofthedead.GardensOfTheDeadClient;
-import gardensofthedead.neoforge.region.GardensOfTheDeadForgeRegion;
+import gardensofthedead.neoforge.region.GardensOfTheDeadNeoForgeRegion;
 import gardensofthedead.registry.*;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,22 +16,22 @@ import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 
 @Mod(GardensOfTheDead.MOD_ID)
-public class GardensOfTheDeadForge {
+public class GardensOfTheDeadNeoForge {
 
-    public GardensOfTheDeadForge() {
+    public GardensOfTheDeadNeoForge() {
         EventBuses.registerModEventBus(GardensOfTheDead.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
 
         GardensOfTheDead.init();
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> GardensOfTheDeadClient::init);
 
-        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> GardensOfTheDeadForgeClient::init);
+        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> GardensOfTheDeadNeoForgeClient::init);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            Regions.register(new GardensOfTheDeadForgeRegion());
+            Regions.register(new GardensOfTheDeadNeoForgeRegion());
             SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, GardensOfTheDead.MOD_ID, ModSurfaceRules.makeRules());
             ModItems.addCompostables((k, v) -> ComposterBlock.COMPOSTABLES.put(k, (float) v));
         });

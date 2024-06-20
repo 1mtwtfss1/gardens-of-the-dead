@@ -14,14 +14,14 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-public class GardensOfTheDeadForgeClient {
+public class GardensOfTheDeadNeoForgeClient {
 
     public static void init() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.addListener(GardensOfTheDeadForgeClient::onClientSetup);
-        modEventBus.addListener(GardensOfTheDeadForgeClient::onRegisterRenderers);
-        modEventBus.addListener(GardensOfTheDeadForgeClient::onRegisterParticleProviders);
+        modEventBus.addListener(GardensOfTheDeadNeoForgeClient::onClientSetup);
+        modEventBus.addListener(GardensOfTheDeadNeoForgeClient::onRegisterRenderers);
+        modEventBus.addListener(GardensOfTheDeadNeoForgeClient::onRegisterParticleProviders);
     }
 
     public static void onClientSetup(FMLClientSetupEvent event) {
