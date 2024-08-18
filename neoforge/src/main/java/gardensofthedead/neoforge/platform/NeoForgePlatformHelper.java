@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 import java.util.function.Supplier;
 
@@ -20,12 +20,12 @@ public class NeoForgePlatformHelper implements PlatformHelper {
 
     @Override
     public boolean isSword(ItemStack stack) {
-        return stack.canPerformAction(ToolActions.SWORD_DIG);
+        return stack.canPerformAction(ItemAbilities.SWORD_DIG);
     }
 
     @Override
     public boolean isShears(ItemStack stack) {
-        return stack.canPerformAction(ToolActions.SHEARS_DIG);
+        return stack.canPerformAction(ItemAbilities.SHEARS_DIG);
     }
 
     @Override

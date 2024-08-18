@@ -4,8 +4,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ToolAction;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 
 import java.util.function.Supplier;
 
@@ -19,8 +19,8 @@ public class StrippableLogBlock extends RotatedPillarBlock {
     }
 
     @Override
-    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
-        if (context.getItemInHand().canPerformAction(toolAction) && ToolActions.AXE_STRIP.equals(toolAction)) {
+    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
+        if (context.getItemInHand().canPerformAction(toolAction) && ItemAbilities.AXE_STRIP.equals(toolAction)) {
             return strippedLogBlock.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
         }
         return null;
